@@ -1,9 +1,9 @@
-# why it dosen't works?
 name: Update Gist
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Runs every day at midnight
+    - cron: "0 0 * * *" # Runs every day at midnight UTC
+  workflow_dispatch: # Allow manual trigger
 
 jobs:
   update:
@@ -16,7 +16,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "20" # Use Node.js version 20
+          node-version: "20"
 
       - name: Install dependencies
         run: npm install
@@ -25,6 +25,6 @@ jobs:
         run: npm start
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GH_GISTID: ${{ secrets.GH_GISTID}}
+          GH_GISTID: ${{ secrets.GH_GISTID }}
           USER_NAME: ${{ github.actor }}
-          TIMEZONE: Asia/Seoul #replace your timezone
+          TIMEZONE: Asia/Seoul

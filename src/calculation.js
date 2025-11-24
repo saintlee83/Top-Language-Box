@@ -2,9 +2,14 @@ const axios = require("axios");
 
 async function calculateLanguageUsage(username, token) {
   try {
+    // Support both classic and fine-grained tokens
+    const authHeader = token.startsWith('ghp_') || token.startsWith('github_pat_') 
+      ? `Bearer ${token}` 
+      : `token ${token}`;
+    
     const auth = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: authHeader,
         "User-Agent": "Top-Language-Box",
         Accept: "application/vnd.github.v3+json",
       },
