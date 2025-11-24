@@ -1,31 +1,40 @@
-const axios = require('axios');
+const axios = require("axios");
 
 async function calculateLanguageUsage(username, token) {
-    try {
-        const auth = { headers: { 'Authorization': `token ${token}` } };
+  try {
+    const auth = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "User-Agent": "Top-Language-Box",
+        Accept: "application/vnd.github.v3+json",
+      },
+    };
 
-        const repos = await axios.get(`https://api.github.com/users/${username}/repos`, auth);
+    const repos = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=100`,
+      auth
+    );
 
-        const languages = {};
-        let totalBytes = 0;
+    const languages = {};
+    let totalBytes = 0;
 
-        for (const repo of repos.data) {
-            const lang = await axios.get(repo.languages_url, auth);
-            for (const language in lang.data) {
-                if (languages[language]) {
-                    languages[language] += lang.data[language];
-                } else {
-                    languages[language] = lang.data[language];
-                }
-                totalBytes += lang.data[language];
-            }
+    for (const repo of repos.data) {
+      const lang = await axios.get(repo.languages_url, auth);
+      for (const language in lang.data) {
+        if (languages[language]) {
+          languages[language] += lang.data[language];
+        } else {
+          languages[language] = lang.data[language];
         }
-
-        return { languages, totalBytes };
-    } catch (error) {
-        throw new Error(`Failed to calculate language usage: ${error.message}`);
+        totalBytes += lang.data[language];
+      }
     }
+
+    return { languages, totalBytes };
+  } catch (error) {
+    const errorMessage = error.response?.data?.message || error.message;
+    throw new Error(`Failed to calculate language usage: ${errorMessage}`);
+  }
 }
 
 module.exports = calculateLanguageUsage;
-

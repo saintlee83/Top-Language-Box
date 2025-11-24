@@ -18,6 +18,23 @@ GH_TOKEN: Verify repo and gist [here](https://github.com/settings/tokens).
 
 GH_GISTID: https://gist.github.com/Suk0803/ **f5ebdde2b6a31849520797f9f4e49831** <<Use this part.
 
+## Local Testing
+
+To test locally:
+
+```bash
+# Install dependencies
+npm install
+
+# Set environment variables
+export USER_NAME=your-github-username
+export GH_TOKEN=your-github-token
+export GH_GISTID=your-gist-id
+
+# Run the script
+npm start
+```
+
 ---
 
 Inspered by[github_readme_state](https://github.com/anuraghazra/github-readme-stats#top-languages-card) and [productive-box](https://github.com/maxam2017/productive-box).

@@ -18,4 +18,23 @@ GH_TOKEN: [여기](https://github.com/settings/tokens)에서 repo와 gist를 선
 
 GH_GISTID: https://gist.github.com/Suk0803/ **f5ebdde2b6a31849520797f9f4e49831** <<이 부분을 사용하세요.
 
+## 로컬 테스트
+
+로컬에서 테스트하려면:
+
+```bash
+# 의존성 설치
+npm install
+
+# 환경 변수 설정
+export USER_NAME=your-github-username
+export GH_TOKEN=your-github-token
+export GH_GISTID=your-gist-id
+
+# 스크립트 실행
+npm start
+```
+
+---
+
 [github_readme_state](https://github.com/anuraghazra/github-readme-stats#top-languages-card) 와 [productive-box](https://github.com/maxam2017/productive-box) 에서 영감을 받았습니다.
